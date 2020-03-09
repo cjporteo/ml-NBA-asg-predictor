@@ -1,16 +1,19 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import BorderlineSMOTE
 
 from xgboost import XGBClassifier as XGBC
 import shap
+from pdpbox import pdp
 from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score, precision_score, recall_score, f1_score, log_loss, plot_confusion_matrix
 
 import os.path
 import pickle
+
 
 pd.options.mode.chained_assignment = None  # default='warn'
 plt.style.use('dark_background')
@@ -78,7 +81,8 @@ for df in [df_train, df_to_predict]:
     df.drop(df[df['GP'] < 7].index, inplace=True)
 
     # the % of team's games the player played in
-    df['Play Pct.'] = df['GP'] / df['Team GP']
+    # sometimes because of scheduling/trades, a player's indiviual GP may exceed their current team's, so we impose a ceiling of 1
+    df['Play Pct.'] = (df['GP'] / df['Team GP']).map(lambda pct : min(pct, 1))
 
     # nomalized via league average pace for that year
     for col in ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TOV', '3PM']:
@@ -203,8 +207,9 @@ def show_model_evaluations():
     plt.savefig('./Plots/logloss-training.png')
     plt.show()
 
+    cmap = matplotlib.colors.LinearSegmentedColormap.from_list('', ['#e0ebeb', '#196666'])
     fig, ax = plt.subplots(figsize=(8,8))
-    plot_confusion_matrix(tuned_model, X_test, y_test, cmap= plt.cm.bone, display_labels=['Not AS', 'All Star'], normalize='true', ax=ax)
+    plot_confusion_matrix(tuned_model, X_test, y_test, cmap=cmap, display_labels=['Not AS', 'All Star'], normalize='true', ax=ax)
     plt.title('Normalized confusion matrix\n')
     plt.savefig('./Plots/confusion.png')
     plt.show()
@@ -218,8 +223,8 @@ def show_model_evaluations():
     plt.title('XGBoost ROC Curve\n(AUC = {:.4f})'.format(roc_auc_score(y_test, y_test_proba)))
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
-    plt.savefig('./Plots/ROCAUC.png')
     ax.legend()
+    plt.savefig('./Plots/ROCAUC.png')
     plt.show()
 
 
@@ -240,6 +245,22 @@ def show_model_interpretation():
     plt.title('Model SHAP Summary')
     plt.savefig('./Plots/SHAP-Summary.png')
     plt.show()
+
+    plt.style.use('default')
+
+    partial_dependence_features = ['PIE', 'Team Conference Rank', 'Play Pct.']
+    for i, feature in enumerate(partial_dependence_features):
+        pdp_feature = pdp.pdp_isolate(model=tuned_model, dataset=X_test, model_features=X_test.columns.tolist(), feature=feature)
+        pdp.pdp_plot(pdp_feature, feature, figsize=(9,9))
+        plt.savefig('./Plots/indiviual-pdp-{}.png'.format(i+1))
+        plt.show()
+        
+    interaction_features = (['PIE', 'Team Conference Rank'], ['PIE', 'Play Pct.'])
+    for i, pair in enumerate(interaction_features):
+        interaction = pdp.pdp_interact(model=tuned_model, dataset=X_test, model_features=X_test.columns.tolist(), features=pair)
+        pdp.pdp_interact_plot(pdp_interact_out=interaction, feature_names=pair, plot_type='contour', figsize=(9,9))        
+        plt.savefig('./Plots/interaction-pdp-{}.png'.format(i+1))
+        plt.show()
 
 
 def show_classification_metrics():
@@ -280,10 +301,10 @@ def show_classification_metrics():
     df_classification_metrics = pd.DataFrame({'Metric' : metrics, 'Score' : scores}).set_index('Metric')
 
     print('\n', df_classification_metrics, end='\n\n')
-    
+
 show_model_evaluations()
-show_model_interpretation()
-show_classification_metrics()
+#show_model_interpretation()
+#show_classification_metrics()
 
 # the following section applies the tuned model to all the active players in the current season
 # the classifiction schema here takes the top 12 prediction probabilities from each conference, slightly different than our fixed threshold

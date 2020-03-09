@@ -109,7 +109,7 @@ def was_AS_last_year(row):
 	return 1 if row['Year'] in all_star_appearances[row['PLAYER']] else 0
 
 # initialize the chromedriver
-d = webdriver.Chrome('./chromedriver.exe')
+d = webdriver.Chrome('./chromedriver')
 
 # crude time delay to wait before attempting to scrape tabular data after XML document has loaded
 TIME_DELAY_TEAMS = 3
