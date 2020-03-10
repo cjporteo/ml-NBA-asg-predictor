@@ -14,9 +14,7 @@ from sklearn.metrics import roc_curve, roc_auc_score, accuracy_score, precision_
 import os.path
 import pickle
 
-
 pd.options.mode.chained_assignment = None  # default='warn'
-plt.style.use('dark_background')
 
 # check if this is our first time running the script
 # if the model exists from a prior execution, we can load the model from memory instead of retraining it from scratch
@@ -173,6 +171,8 @@ y_test_proba = [prob[1] for prob in tuned_model.predict_proba(X_test)]
 # shows model performance progress during training and how it fares with the test set
 def show_model_evaluations():
 
+    plt.style.use('dark_background')
+
     results = tuned_model.evals_result()
     epochs = len(results['validation_0']['auc'])
     x_axis = range(0, epochs)
@@ -207,12 +207,8 @@ def show_model_evaluations():
     plt.savefig('./Plots/logloss-training.png')
     plt.show()
 
-    cmap = matplotlib.colors.LinearSegmentedColormap.from_list('', ['#e0ebeb', '#196666'])
-    fig, ax = plt.subplots(figsize=(8,8))
-    plot_confusion_matrix(tuned_model, X_test, y_test, cmap=cmap, display_labels=['Not AS', 'All Star'], normalize='true', ax=ax)
-    plt.title('Normalized confusion matrix\n')
-    plt.savefig('./Plots/confusion.png')
-    plt.show()
+    plt.style.use('default')
+    plt.style.use('ggplot')
 
     fig, ax = plt.subplots(figsize=(8,8))
     fpr, tpr, thresholds = roc_curve(y_test, y_test_proba)
@@ -227,41 +223,51 @@ def show_model_evaluations():
     plt.savefig('./Plots/ROCAUC.png')
     plt.show()
 
+    plt.style.use('default')
+    plt.style.use('seaborn-deep')
+
+    cmap = matplotlib.colors.LinearSegmentedColormap.from_list('', ['#FFFFFF', '#2D5986'])
+    fig, ax = plt.subplots(figsize=(8,8))
+    plot_confusion_matrix(tuned_model, X_test, y_test, cmap=cmap, display_labels=['Not AS', 'All Star'], normalize='true', ax=ax)
+    plt.title('Normalized confusion matrix\n')
+    plt.savefig('./Plots/confusion.png')
+    plt.show()
+
 
 def show_model_interpretation():
-
+    
     # uses SHAP values to "explain" the model robustly
     # SHAP provides model inteprtation metrics that are accurate and consistent (unlike gain, cover or weight)
-    shap_values = shap.TreeExplainer(tuned_model).shap_values(X_train)
+    explainer = shap.TreeExplainer(tuned_model)
+    shap_values = explainer.shap_values(X_train)
+    
+    plt.style.use('seaborn-deep')
 
-    shap.summary_plot(shap_values, X_train, plot_type='dot', axis_color='#FFFFFF', plot_size=(12,8), show=False)
+    shap.summary_plot(shap_values, X_train, plot_type='dot', plot_size=(12,8), show=False)
     plt.subplots_adjust(left=0.3)
     plt.title('Model SHAP Details')
     plt.savefig('./Plots/SHAP-Details.png')
     plt.show()
-    
-    shap.summary_plot(shap_values, X_train, plot_type='bar', color='#00cccc', axis_color='#FFFFFF', plot_size=(12,8), show=False)
+
+    shap.summary_plot(shap_values, X_train, plot_type='bar', color='#2D5986', plot_size=(12,8), show=False)
     plt.subplots_adjust(left=0.22)
     plt.title('Model SHAP Summary')
     plt.savefig('./Plots/SHAP-Summary.png')
     plt.show()
 
-    plt.style.use('default')
-
     partial_dependence_features = ['PIE', 'Team Conference Rank', 'Play Pct.']
     for i, feature in enumerate(partial_dependence_features):
         pdp_feature = pdp.pdp_isolate(model=tuned_model, dataset=X_test, model_features=X_test.columns.tolist(), feature=feature)
-        pdp.pdp_plot(pdp_feature, feature, figsize=(9,9))
+        fig, ax = pdp.pdp_plot(pdp_feature, feature, figsize=(10,8))
         plt.savefig('./Plots/indiviual-pdp-{}.png'.format(i+1))
         plt.show()
-        
+    
     interaction_features = (['PIE', 'Team Conference Rank'], ['PIE', 'Play Pct.'])
     for i, pair in enumerate(interaction_features):
         interaction = pdp.pdp_interact(model=tuned_model, dataset=X_test, model_features=X_test.columns.tolist(), features=pair)
-        pdp.pdp_interact_plot(pdp_interact_out=interaction, feature_names=pair, plot_type='contour', figsize=(9,9))        
+        fig, ax = pdp.pdp_interact_plot(pdp_interact_out=interaction, feature_names=pair, plot_type='contour', figsize=(10,8))
         plt.savefig('./Plots/interaction-pdp-{}.png'.format(i+1))
         plt.show()
-
 
 def show_classification_metrics():
 
@@ -303,8 +309,8 @@ def show_classification_metrics():
     print('\n', df_classification_metrics, end='\n\n')
 
 show_model_evaluations()
-#show_model_interpretation()
-#show_classification_metrics()
+show_model_interpretation()
+show_classification_metrics()
 
 # the following section applies the tuned model to all the active players in the current season
 # the classifiction schema here takes the top 12 prediction probabilities from each conference, slightly different than our fixed threshold
