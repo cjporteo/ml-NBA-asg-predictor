@@ -12,7 +12,8 @@ START_YEAR, END_YEAR = 1996, 2020
 # list of DataFrames for historical data, one for each year
 df_train_master = []
 
-# DataFrame containing features for the current year which we will later use to estimate ASG selection probabilities
+# DataFrame containing features for the current year which we will later use 
+# to estimate ASG selection probabilities
 df_to_predict = pd.DataFrame()
 
 # let's us look up team record and rank by (year, team)
@@ -161,6 +162,7 @@ for year in range(START_YEAR, END_YEAR):
 
 	time.sleep(TIME_DELAY_PLAYERS)
 
+	# by default, only 50 players are displayed per page, but we can change this using the dropdown select element
 	select = Select(d.find_element_by_xpath('/html/body/main/div[2]/div/div[2]/div/div/nba-stat-table/div[1]/div/div/select'))
 	select.select_by_visible_text('All')
 
