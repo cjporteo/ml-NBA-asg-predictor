@@ -12,7 +12,7 @@ A thorough 5000+ word write-up for this project can be found on [Medium](https:/
 
 Even if you aren't a Medium subscriber, you can use these links to read the complete article.
 
-[Using machine learning to predict NBA All-Stars, Part 1: Data collection](https://medium.com/@cjporteo/using-machine-learning-to-predict-nba-all-stars-part-1-data-collection-9fb94d)
+[Using machine learning to predict NBA All-Stars, Part 1: Data collection](https://medium.com/@cjporteo/using-machine-learning-to-predict-nba-all-stars-part-1-data-collection-9fb94d386530?source=friends_link&sk=a96c9598bd868f16f508e75c6dff3158)
 
 
 [Using machine learning to predict NBA All-Stars, Part 2: Modelling](https://medium.com/@cjporteo/using-machine-learning-to-predict-nba-all-stars-part-2-modelling-a66e6b534998?source=friends_link&sk=98afe5974104d088d4d3c99e0d305a38)
