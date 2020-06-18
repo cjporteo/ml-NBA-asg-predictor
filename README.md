@@ -1,10 +1,11 @@
 # ml-NBA-asg-predictor
 
-I featured this project as a two-part series on Towards Data Science.
+## About
 
-## Links
+Combinines web scraping, gradient boosted tree models and model explainability techniques to shed light on the NBA All-Star selection process.
 
-Part 1:
-Part 2:
+A full write-up for this project can be found on [Medium](https://medium.com/@cjporteo) as a two-part series, published in Towards Data Science. 
 
-Modelling Jupyter Notebook: [https://github.com/cjporteo/ml-NBA-asg-predictor/blob/master/model_ASG.ipynb](https://github.com/cjporteo/ml-NBA-asg-predictor/blob/master/model_ASG.ipynb)
+## Jupyter Notebook
+
+[https://github.com/cjporteo/ml-NBA-asg-predictor/blob/master/model_ASG.ipynb](https://github.com/cjporteo/ml-NBA-asg-predictor/blob/master/model_ASG.ipynb)
