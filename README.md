@@ -1,8 +1,8 @@
-## ml-NBA-asg-predictor
+# ml-NBA-asg-predictor
 
 I featured this project as a two-part series on Towards Data Science.
 
-# Links
+## Links
 
 Part 1:
 Part 2:
