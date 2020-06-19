@@ -6,7 +6,7 @@ An end-to-end deep dive to quantitatively investigate NBA All-Star selection.
 
 Combinines web scraping, XGBoost, and model explainability techniques to shed light on the NBA All-Star selection process.
 
-A thorough 5000+ word write-up for this project can be found on [Medium](https://medium.com/@cjporteo) as a two-part series, published in Towards Data Science. 
+A thorough 5000+ word write-up for this project can be found on [Medium](https://medium.com/@cjporteo) as a two-part series, published in Towards Data Science and The Startup 
 
 ## Links
 
