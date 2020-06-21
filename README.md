@@ -8,6 +8,10 @@ Combinines web scraping, XGBoost, and model explainability techniques to shed li
 
 A thorough 5000+ word write-up for this project can be found on [Medium](https://medium.com/@cjporteo) as a two-part series, published in Towards Data Science and The Startup.
 
+![](https://i.imgur.com/RyFo2Pz.png)
+
+![](https://i.imgur.com/RaEvrQM.png)
+
 ## Links
 
 Even if you aren't a Medium subscriber, you can use these links to read the complete article.
