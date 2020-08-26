@@ -2,6 +2,18 @@
 
 An end-to-end deep dive to quantitatively investigate NBA All-Star selection.
 
+## Findings
+
+This model correctly predicted 22/24 All-Stars for the 2020 NBA All-Star Game. Here are the predictions:
+
+### East
+
+![](https://i.imgur.com/7L5Zpwu.png)
+
+### West
+
+![](https://i.imgur.com/oUVN2Vm.png)
+
 ## About
 
 Combines web scraping, XGBoost, and model explainability techniques to shed light on the NBA All-Star selection process.
