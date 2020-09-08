@@ -32,7 +32,7 @@ This model correctly predicted 22/24 All-Stars for the 2020 NBA All-Star Game. H
 
 ![](https://i.imgur.com/oUVN2Vm.png)
 
-## Article Links - Towards Data Science
+## 📚 Article Links - Towards Data Science
 
 Even if you aren't a Medium subscriber, you can use these links to read the complete article.
 
