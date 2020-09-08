@@ -4,13 +4,13 @@
 
 [https://github.com/cjporteo/ml-NBA-asg-predictor/blob/master/model_ASG.ipynb](https://github.com/cjporteo/ml-NBA-asg-predictor/blob/master/model_ASG.ipynb)
 
-## What is this project about?
+## 💭 What is this project about?
 
 As a lifelong basketball fan, I always wondered what exactly goes into being selected as an NBA All-Star - why do certain players get picked and others get glossed over? Which aspects of their performance are most valued by fans and media? What makes a star a star?
 
 Over the years, I’ve formed my own personal opinions on these debates, but they were just that - opinions. I wasn’t quite satisfied with this, so that’s when I decided to go digging for the relevant data and quantitatively explore this problem. My goal was to create a machine learning model that could accurately classify players as All-Stars or non-All-Stars, then put the model under the microscope to extract useful insights and quell some of my curiosity.
 
-A thorough 5000+ word write-up for this project (**links at bottom of page**) can be found on [Medium](https://medium.com/@cjporteo) as a two-part series, published in Towards Data Science.
+A thorough ***5000+ word write-up*** for this project (**links at bottom of page**) can be found on [Medium](https://medium.com/@cjporteo) as a two-part series, published in Towards Data Science.
 
 ![](https://i.imgur.com/E0YvkTu.png)
 
@@ -20,7 +20,7 @@ This project uses a custom web-scraping utility to construct a usable dataset an
 
 I’m proud of this project because of the effort I had to put in to collect and process the data. The starting point for many data science projects is a nice pre-assembled dataset, and the engineering aspects of the data science workflow are often neglected. With this project, I started out with nothing but curiosity and had to employ a wide range of problem solving and data science techniques to take this problem from end-to-end.
 
-## Findings
+## 🧪 Findings
 
 This model correctly predicted 22/24 All-Stars for the 2020 NBA All-Star Game. Here are the predictions:
 
