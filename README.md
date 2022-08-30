@@ -12,9 +12,9 @@ Over the years, I’ve formed my own personal opinions on these debates, but the
 
 A thorough ***5000+ word write-up*** for this project (**links at bottom of page**) can be found on [Medium](https://medium.com/@cjporteo) as a two-part series, published in Towards Data Science.
 
-![](https://i.imgur.com/E0YvkTu.png)
+![](https://raw.githubusercontent.com/cjporteo/ml-NBA-asg-predictor/master/readme_assets/medium_nba_1.png)
 
-![](https://i.imgur.com/RaEvrQM.png)
+![](https://raw.githubusercontent.com/cjporteo/ml-NBA-asg-predictor/master/readme_assets/medium_nba_2.png)
 
 This project uses a custom web-scraping utility to construct a usable dataset and and uses gradient boosted tree modelling (XGBoost) to capture relationships between player statistics and their All-Star selection decision. I also applied model exlainability and interpretation techniques to shine a quantitative light on the real story going on behind this problem.
 
